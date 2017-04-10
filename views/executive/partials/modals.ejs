@@ -1,0 +1,130 @@
+<!-- Modal -->
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#008529;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Actualizar información</h4>
+			</div>
+			<div class="modal-body">
+				<form name="formService" id="formService" method="post" action="/executive/message">
+					<input type="hidden" name="darwing" value="<%=cliente[0].info._id%>" required="">
+					<input type="hidden" name="service" id="service" value="" required="">
+					<input type="hidden" name="deseo" id="deseo" value="" required="">
+					<div class="form-group has-success">
+						<label for="objetivo"><b>Tipo de servicio solicitado</b></label>
+						<select class="form-control material"  name="objetivo" id="objetivo" required="">
+							<option value="Libre Disponibilidad">Libre Disponibilidad</option>
+							<option value="Credito Hipotecario">Credito Hipotecario</option>
+							<option value="Credito Comercial">Credito Comercial</option>
+							<option value="Credito Automotriz">Credito Automotriz</option>
+						</select>
+					</div>
+					<div class="form-group has-success">
+						<label for="monto"><b>Monto del Servicio Ajustable</b></label>
+						<input type="number" name="monto" id="monto" value="" class="form-control material" placeholder="Monto" required="">
+					</div>
+					<div class="form-group has-success">
+						<label for="tasa"><b>Tasa de interes</b></label>
+						<input type="text" name="tasa" id="tasa" value="" class="form-control material" placeholder="Ej: 2.1" required="">
+					</div>
+					<div class="form-group has-success">
+						<label for="valorcuota"><b>Valor Cuota</b></label>
+						<input type="valorcuota" name="valorcuota" id="valorcuota" value="" class="form-control material" placeholder="Valor de las cuotas, Ej: 125000" required="">
+					</div>
+					<div class="form-group has-success">
+						<label for="estado"><b>Estado del servicio del cliente</b></label>
+						<select name="estado" id="estado" class="form-control material" required="">
+							<option value="En revision">En Revisión</option>
+							<option value="Requiere Acción">Requiere Acción</option>
+							<option value="Operación Exitosa">Operación Exitosa</option>
+						</select>
+					</div>
+					<div class="form-group has-success">
+						<label for="message"><b>Mensaje a Cliente</b></label>
+						<textarea  name="message" id="message" name="name" rows="4" style="resize:none;" class="form-control material" required="" placeholder="Ej: Se requiere X información adicional"></textarea>
+					</div>
+					<div class="form-group has-success">
+						<center><button type="submit" class="btn btn-info">¡Listo!</button></center>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<center><span><i class="fa fa-eye"></i> Recuerde siempre contestar a tiempo las peticiones de sus clientes para mejorar la calidad del servicio</span></center>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal agregar servicio -->
+<div class="modal fade" id="addserviceModal" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#008529;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Agregar servicio</h4>
+			</div>
+			<div class="modal-body">
+				<form name="formService" id="formService" method="post" action="/executive/message">
+					<input type="hidden" name="darwing" value="<%=cliente[0].info._id%>" required="">
+					<input type="hidden" name="service" id="service" value="" required="">
+					<input type="hidden" name="deseo" id="deseo" value="" required="">
+					<div class="form-group has-success">
+						<label for="objetivo"><b>Tipo de servicio solicitado</b></label>
+						<select class="form-control material"  name="objetivo" required="">
+							<option value="" disabled selected>Seleccione</option>
+							<option value="Libre Disponibilidad">Libre Disponibilidad</option>
+							<option value="Credito Hipotecario">Credito Hipotecario</option>
+							<option value="Credito Comercial">Credito Comercial</option>
+							<option value="Credito Automotriz">Credito Automotriz</option>
+						</select>
+					</div>
+					<div class="form-group has-success">
+						<label for="monto"><b>Monto del Servicio Ajustable</b></label>
+						<input type="number" name="monto" value="" class="form-control material" placeholder="Monto" required="">
+					</div>
+					<div class="form-group has-success">
+						<label for="tasa"><b>Tasa de interes</b></label>
+						<input type="text" name="tasa" value="" class="form-control material" placeholder="Ej: 2.1" required="">
+					</div>
+					<div class="form-group has-success">
+						<label for="valorcuota"><b>Valor Cuota</b></label>
+						<input type="valorcuota" name="valorcuota" class="form-control material" placeholder="Valor de las cuotas, Ej: 125000" required="">
+					</div>
+					<div class="form-group has-success">
+						<label for="estado"><b>Estado del servicio del cliente</b></label>
+						<select name="estado" class="form-control material" required="">
+							<option value="" disabled selected>Seleccione</option>
+							<option value="En revision">En Revisión</option>
+							<option value="Requiere Acción">Requiere Acción</option>
+							<option value="Operación Exitosa">Operación Exitosa</option>
+						</select>
+					</div>
+					<div class="form-group has-success">
+						<label for="message"><b>Mensaje a Cliente</b></label>
+						<textarea  name="message" name="name" rows="4" style="resize:none;" class="form-control material" required="" placeholder="Ej: Se requiere X información adicional"></textarea>
+					</div>
+					<div class="form-group has-success">
+						<center><button type="submit" class="btn btn-info">¡Listo!</button></center>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="modalPDF" class="alert alert-info" style="bottom: 4%;right: 0;margin-bottom: 0;font-size: 1.2em;padding: 1em 1.3em;z-index: 2000;position: fixed;background-color: #630404;display: none;">
+	<div id="dvPDFLoading">
+		<i class="fa fa-spinner fa-pulse fa-2x fa-fw" style="font-size: 20px;"></i>
+		<span>Generando archivo PDF</span>
+	</div>
+	<div id="dvPDFDownload" style="display: none">
+		<a id="anclaPDFDownload" download style="color: white;">
+			<i class="fa fa-cloud-download" aria-hidden="true"></i> Descargar
+		</a>
+	</div>
+</div>

@@ -1,0 +1,319 @@
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.nicescroll.min.js"></script>
+<script src="../js/classie.js"></script>
+<script src="../js/bootstrap-select.min.js"></script>
+<!--<script src="js/search.js"></script>-->
+<script src="../js/sweetalert.min.js"></script>
+<script src="../js/moment.min.js"></script>
+<script src="../js/polyfill.object-fit.min.js"></script>
+
+<script src="../js/ui.js"></script>
+<script src="../js/jquery.easypiechart.min.js"></script>
+<script src="../js/jquery.sparkline.min.js"></script>
+<script src="../js/calendar.js"></script>
+<script src="../js/chart.js"></script>
+<script src="../js/skycons.js"></script>
+<script>
+	var skycons = new Skycons({
+		"color": "white"
+	});
+	skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+	skycons.add("icon2", Skycons.CLEAR_DAY);
+	skycons.play();
+</script>
+<script src="../js/jquery.nicescroll.min.js"></script>
+<script src="../js/TweenMax.min.js"></script>
+<script src="../js/chat.js"></script>
+<script src="../js/peppermint.min.js"></script>
+<script src="../js/bootbox.min.js"></script>
+<script src="../js/jquery.dataTables.min.js"></script>
+<script src="../js/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	function datas(){
+		$.ajax({
+			url: './executive/news',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data){
+				if(data.length>0){
+					var html = ''
+					var count = 0
+					var nombre = ''
+
+					for (var i = 0; i < data.length; i++) {
+						nombre = data[i].nombre
+						rut = data[i].client
+						html += '<a href="/executive/client?doc=' + rut + '" class="unit"><span class="icon-box"></span><p>Cliente Require servicio: ' + data[i].objetivo + '</p></a>'
+						count++
+					}
+					$("#message-btn").html('<span class="notification-count">' + data.length + '</span>')
+					if(count!=0)
+						$("#conteniendo").html(html)
+				} else {
+					$("#message-btn").html('<span class="notification-count">0</span>')
+				}
+			}
+		});
+	}
+	$(document).ready(function(){
+		datas()
+		setInterval(function(){ datas(); }, 10000);
+	})
+</script>
+<script type="text/javascript">
+	$("#buscarForm").submit(function(){
+		event.preventDefault();
+		var rut = $("#doc").val()
+		$.ajax({
+			url: 'executive/clientid',
+			type: 'POST',
+			data: {
+				'doc': rut
+			},
+			dataType: 'json',
+			success: function(data){
+				if(data.result==true)
+					document.getElementById("buscarForm").submit()
+				else
+					bootbox.alert("El rut no se encuentra en el sistema");
+			}
+		});
+	})
+</script>
+<script type="text/javascript">
+	$("#newClient").submit(function(){
+		event.preventDefault()
+		if ($("#q5").val() == $("#q6").val()) {
+			document.getElementById("newClient").submit()
+		} else {
+			bootbox.alert('El correo debe conincidir')
+			$("#q6").focus()
+		}
+	})
+</script>
+<script type="text/javascript">
+	function openModal(d,o,s,e,m,n,t,v){
+		$('#serviceModal').modal('toggle');
+		$('#service').val(d)
+		$('#objetivo').val(o)
+		$('#monto').val(s)
+		$('#estado').val(e)
+		$('#message').val(m)
+		$('#deseo').val(n)
+		$('#tasa').val(t)
+		$('#valorcuota').val(v)
+	}
+</script>
+<script type="text/javascript">
+	function messagesFromBoss(){
+		$.ajax({
+			url: './executive/messages',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data){
+				if(data.Message.length>0 && data.Message!="No messages"){
+					for (var i = 0; i < data.Message.length; i++) {
+						var html = ''
+						var motivo = data.Message[i].motivo
+						var mensaje = data.Message[i].mensaje
+						var hora = new Date(data.Message[i].registro).toISOString().split('T')[1].split('.')[0]
+						if (data.Cliente.length > 0) {
+							html = '<table class="table table-small-font table-bordered table-striped"><thead><tr><th>Cliente</th><th>Rut</th><th>Servicio Pendiente</th><th>Fecha</th><th>Estado</th></tr></thead><tbody>'
+							for (var x = 0; x < data.Cliente.length; x++) {
+								var nombre = data.Cliente[x].Nombre
+								var rut = data.Cliente[x].Rut
+								for (var a = 0; a < data.Cliente[x].Pendientes.serviciosPendientes.length; a++) {
+									var objetivo = data.Cliente[x].Pendientes.serviciosPendientes[a].objetivo
+									var fecha = new Date(data.Cliente[x].Pendientes.serviciosPendientes[a].registro).toISOString().split('T')[0]
+									var estado = data.Cliente[x].Pendientes.serviciosPendientes[a].estado
+									html +='<tr><td><a onclick="checkThemAsChecked()" href="/executive/client?doc=' + rut + '" style="text-decoration:none;"><i class="fa fa-user"></i> ' + nombre + '</a></td><td>' + rut + '</td>' + '</td><td>' + objetivo + '</td>' + '</td><td>' + fecha + '</td>' + '</td><td>' + estado + '</td></tr>'
+								}
+							}
+							html += '</tbody></table>'
+						}
+						bootbox.confirm({
+							title: 'Nuevo Mensaje JOF a las ' + hora,
+							message: '<b>Motivo</b><br>"' + motivo + '"<br><b>Mensaje</b><br><fieldset>"' + mensaje + '"</fieldset><br>' + html,
+							buttons: {
+								cancel: {
+									label: '<i class="fa fa-times"></i> Cancel'
+								},
+								confirm: {
+									label: '<i class="fa fa-check"></i> Visto'
+								}
+							},
+							callback: function (result) {
+								if(result==true){
+									checkThemAsChecked()
+								}
+							}
+						});
+					}
+				}
+			}
+		});
+	}
+</script>
+<script type="text/javascript">
+	function checkThemAsChecked(){
+		$.ajax({
+			url: './executive/messagesChecked',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data){
+				if(data.succes==true){
+					bootbox.alert("Mensajes Vistos")
+				}
+			}
+		});
+	}
+</script>
+<script type="text/javascript">
+	messagesFromBoss()
+	setInterval(function(){ messagesFromBoss(); }, 100000);
+</script>
+<script type="text/javascript">
+	$("#q1").change(function() {
+		$.ajax({ url: './checkRut', type: 'POST', data: {'r': $("#q1").val()}, dataType: 'json', success: function(data){
+			if (data.rut=="use") {
+				$("#q1").val('')
+				bootbox.alert('Ya se ha registrado un cliente con este rut en el sistema.')
+			}
+		}});
+	});
+</script>
+
+<script type="text/javascript">
+	(function(){
+		var script = {
+			init: function(){
+				$('[data-toggle="tooltip"]').tooltip();
+				$('#tableMisClientes').DataTable({
+					"language": {
+						"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+					},
+					"columns": [
+					null,
+					null,
+					null,
+					null,
+					]
+				});
+				$('.badge-valid').on('click', this.validarDocumento);
+				$('.badge-invalid').on('click', this.rechazarDocumento);
+				$('.chkVisible').on('click', this.checkIfVisible);
+				$('#btnPdfDownload').on('click', this.sendToPrint);
+				$("#anclaPDFDownload").on('click', this.hideDownload);
+			},
+			validarDocumento: function(e){
+				var id = this.dataset.id;  //este es el id del documento
+
+				bootbox.dialog({
+					message: "¿ Estas seguro que deseas validar el documento ?",
+					title: "Validar documento",
+					buttons: {
+						success: {
+							label: "Aceptar",
+							className: "btn-success btn-sm",
+							callback: function () {
+								bootbox.alert("ejecutar validacion");
+							}
+						},
+						danger: {
+							label: "Cancelar",
+							className: "btn-danger btn-sm",
+							callback: function () {}
+						}
+					}
+				});
+			},
+			rechazarDocumento: function(){
+				var id = this.dataset.id;  //este es el id del documento
+
+				bootbox.dialog({
+					message: "¿ Estas seguro que deseas rechazar el documento ?",
+					title: "Rechazar documento",
+					buttons: {
+						success: {
+							label: "Aceptar",
+							className: "btn-success btn-sm",
+							callback: function () {
+								bootbox.alert("ejecutar rechazo");
+							}
+						},
+						danger: {
+							label: "Cancelar",
+							className: "btn-danger btn-sm",
+							callback: function () {}
+						}
+					}
+				});
+			},
+			checkIfVisible: function(){
+				var selected = [];
+				$('input[type=checkbox]').each(function() {
+					if ($(this).is(":checked")) {
+						selected.push($(this).val());
+					}
+				});
+
+				if(selected.length > 1){
+					$("#dvHelpDownload").fadeOut('fast', function() {
+						$("#dvPdfDownload").fadeIn();
+					});
+				}else{
+					$("#dvPdfDownload").fadeOut('fast', function() {
+						$("#dvHelpDownload").fadeIn();
+					});
+				}
+			},
+			sendToPrint: function(){
+				var selected = [];
+				$('input[type=checkbox]').each(function() {
+					if ($(this).is(":checked")) {
+						selected.push({'link': $(this).attr("data-id")});
+					}
+				});
+
+				$("#modalPDF").fadeIn();
+				$.post('http://numetalsour.esy.es/gestiona/mergepdf',{
+					links:selected
+				},function(z,x){
+					$("#dvPDFLoading").css('display', 'none');
+					$("#dvPDFDownload").fadeIn();
+					var json = JSON.parse(z);
+					$("#anclaPDFDownload").attr("href", "http://numetalsour.esy.es/gestiona/"+json.url);
+				});
+
+				$.ajax({
+					type: "POST",
+					url: "http://numetalsour.esy.es/gestiona/mergepdf",
+					data: {links:selected},
+					success: function(z){
+						$("#dvPDFLoading").css('display', 'none');
+						$("#dvPDFDownload").fadeIn();
+						var json = JSON.parse(z);
+						$("#anclaPDFDownload").attr("href", "http://numetalsour.esy.es/gestiona/"+json.url);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						$("#modalPDF").fadeOut();
+						$("#dvPDFLoading").css('display', 'block');
+						$("#dvPDFDownload").css('display', 'none');
+						bootbox.alert('Upps ocurrio un error, favor reintente')
+					}
+				});
+			},
+			hideDownload: function(){
+				$("#modalPDF").fadeOut();
+				$("#dvPDFLoading").css('display', 'block');
+				$("#dvPDFDownload").css('display', 'none');
+			}
+		}
+
+		$(document).ready(function() {
+			script.init();
+		});
+	})()
+</script>

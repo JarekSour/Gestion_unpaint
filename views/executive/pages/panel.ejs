@@ -1,0 +1,43 @@
+
+<!-- views/pages/panel.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+  <div id="wrap-content" class="wrap-content">
+    <% include ../partials/preloader %>
+    <% include ../partials/aside %>
+    <% include ../partials/header %>
+    <div class="content container-fluid">
+      <div class="col-lg-12">
+        <%if(page == 'panel'){%>
+        <% include ../partials/clients %>
+        <%}%>
+        <%if(page == 'register'){%>
+          <% include ../partials/register %>
+        <%}%>
+        <%if(page == 'cliente'){%>
+          <div class="row row-broken">
+            <% include ../partials/clienteservices %>
+          </div>
+          <div class="row row-broken">
+            <% include ../partials/personalinfo %>
+            <% include ../partials/clientfiles %>
+            <% include ../partials/clientpatri %>
+          </div>
+        <%}%>
+      </div>
+    </div>
+    <% include ../partials/footer %>
+  </div>
+  <% include ../partials/wrap-menu %>
+  <div id="overlay" class="overlay"></div>
+  <%if(page == 'cliente'){%>
+    <% include ../partials/modals %>
+  <%}%>
+  <% include ../partials/scripts %>
+</body>
+</html>

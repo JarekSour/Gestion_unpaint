@@ -1,0 +1,11 @@
+applications:
+- path: .
+  memory: 1024M
+  instances: 1
+  domain: mybluemix.net
+  name: Gestiona
+  host: Gestiona
+  disk_quota: 2048M
+  services:
+  - Gestiona-cloudantNoSQLDB
+  - Compose for MongoDB-t2

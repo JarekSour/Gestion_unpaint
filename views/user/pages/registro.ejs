@@ -1,0 +1,133 @@
+<!-- views/pages/login.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% include ../partials/head %>
+</head>
+
+<body class="decor-success loginpage" style="overflow-y:visible;">
+	<div class="container">
+		<img src="images/gestiona.png" style="width:20%;"/>
+		<h3 style="color:#006cad;"><center>Favor ingrese sus datos para completar el registro</center></h3>
+		<% if(mensaje){%>
+		<div class="alert alert-danger"><%=mensaje%></div>
+		<%}%>
+		<div class="col-md-12">
+			<form method="post" action="/registro" id="newForm" >
+				<div class="col-xs-12 col-sm-12 col-lg-12" >
+					<div class="form-group">
+						<label>Genero</label>
+						<select class="form-control material" id="q1" name="q1" required="">
+							<option value="" disabled selected>Seleccione</option>
+							<option value="0">Masculino</option>
+							<option value="1">Femenino</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group">
+						<label>Nacionalidad</label>
+						<input class="form-control material" id="q3" name="q3" type="text" placeholder="Ej. Chilena" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group">
+						<label>Fecha de nacimiento</label>
+						<input class="form-control material" id="q4" name="q4" type="text" placeholder="Ej. 21-05-1989" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-lg-12" >
+					<div class="form-group">
+						<label>Estado Civil</label>
+						<select class="form-control material" id="q2" name="q2" required>
+							<option value="" disabled selected>Seleccione</option>
+							<option value="Solter@">Solter@</option>
+							<option value="Casad@">Casad@</option>
+							<option value="Divorciad@">Divorciad@</option>
+							<option value="Viud@">Viud@</option>
+						</select>
+					</div>
+				</div>
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Número de Hijos Menores a 21 años de edad</label>
+					<input class="form-control material" id="q5" name="q5" type="number" value="0" placeholder="Ej. 21-05-1989" required/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Empresa o institución de trabajo</label>
+					<input class="form-control material" id="q9" name="q9" type="text" placeholder="Ej. Banco de Crédito e Inversiones" required/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Dirección</label>
+					<input class="form-control material" id="q6" name="q6" type="text" placeholder="Ej. Av Alameda #1234, Santiago" required/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Numero de Télefono fijo o movil</label>
+					<input class="form-control material" id="q12" name="q12" type="text" placeholder="Ej. +569 654 32 198" required/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Renta liquida mensual</label>
+					<input class="form-control material" id="q7" name="q7" type="number" min="0" placeholder="Ej. 450000" required/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Situación Laboral</label>
+					<select class="form-control material" id="q8" name="q8" required>
+						<option value="" disabled selected>Seleccione</option>
+						<option value="Estudiando">Estudiando</option>
+						<option value="Independiente">Independiente</option>
+						<option value="Dependiente">Dependiente</option>
+						<option value="Cesante">Cesante</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Contraseña</label>
+					<input class="form-control material" id="q10" name="q10" type="password" required/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-6" >
+				<div class="form-group">
+					<label>Confirme Contraseña</label>
+					<input class="form-control material" id="q11" name="q11" type="password" required/>
+				</div>
+			</div>
+			<div class="text-right">
+				<button class="btn btn-lg btn-lg btn-primary" type="submit">Finalizar</button>
+			</div>
+			<br><br>
+		</form>
+	</div>
+</div>
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+	$("#newForm").submit(function(){
+		event.preventDefault()
+		if ($("#q10").val() == $("#q11").val()) {
+			document.getElementById("newForm").submit()
+		} else {
+			$("#q13").val("")
+			$("#q13").focus()
+			bootbox.alert('Las contraseñas deben conincidir')
+		}
+	});
+
+	$('#c1').keyup(function(){
+		this.value = this.value.replace(/[.]/g, '');
+	});
+</script>
+</body>
+</html>

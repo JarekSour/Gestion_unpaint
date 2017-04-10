@@ -1,0 +1,55 @@
+<!-- views/pages/login.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% include ../partials/head %>
+</head>
+
+<body class="decor-success loginpage" style="overflow-y:visible;">
+	<div class="container">
+		<img src="images/gestiona.png" style="width:20%;"/>
+		<h3 style="color:#006cad;"><center>Favor ingrese sus datos para completar el registro</center></h3>
+		<% if(mensaje){%>
+		<div class="alert alert-danger"><%=mensaje%></div>
+		<%}%>
+		<div class="col-md-12">
+			<form method="post" action="/jof/registro" id="newForm" >
+				<div class="form-group has-success" style="text-align:center;">
+					<input class="form-control material" id="q1" name="q1" type="text" placeholder="Nombre de usuario, Ej: jesusfern" required/>
+				</div>
+				<div class="form-group has-success" style="text-align:center;">
+					<input class="form-control material" id="q2" name="q2" type="text" placeholder="Dirección Sucursal, Ej: Av. Manquehue Sur N° 1567, Las Condes" required/>
+				</div>
+				<div class="form-group has-success" style="text-align:center;">
+					<input class="form-control material" id="q3" name="q3" type="number" placeholder="Telefono Sucursal, Ej: 56226206940" required/>
+				</div>
+				<!--Falta Sucursal-->
+				<div class="form-group has-success" style="text-align:center;">
+					<input class="form-control material" id="q10" name="q10" type="password" placeholder="Contraseña" required/>
+				</div>
+				<div class="form-group has-success" style="text-align:center;">
+					<input class="form-control material" id="q11" name="q11" type="password" placeholder="Confirme Contraseña" required/>
+				</div>
+				<div class="text-right">
+					<button class="btn btn-lg btn-lg btn-primary" type="submit">Datos Completados</button>
+				</div>
+				<br><br>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$("#newForm").submit(function(){
+			event.preventDefault()
+			if ($("#q10").val() == $("#q11").val()) {
+				document.getElementById("newForm").submit()
+			} else {
+				bootbox.alert('Las contraseñas deben cohincidir para evitar errores de tipeo')
+				$("#q11").val("")
+				$("#q11").focus()
+			}
+		})
+	</script>
+</body>
+</html>

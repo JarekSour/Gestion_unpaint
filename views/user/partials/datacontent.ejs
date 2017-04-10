@@ -1,0 +1,454 @@
+<%if(renta.length>=6 && domicilio.length>=1){%>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script type="text/javascript">
+
+	var day   = localStorage.getItem("modal-start");
+	var today =  new Date().toISOString().split('T')[0].split('-')[2];
+
+	if(today > day || day == 'undefined'){
+		localStorage.setItem("modal-start", new Date().toISOString().split('T')[0].split('-')[2] );
+
+		bootbox.dialog({
+			onEscape:true,
+			backdrop:true,
+			message: '<div class="modal-start">  ' +
+			'<div class="col-md-12 txt-on-img"> ' +
+			'<img src="../images/flecha-izquierda.png" style="position:absolute;margin: 5px 0px 0px -42px;width: 776px;" />' +
+			'<h2 style="position:absolute;margin:90px 50px 50px 50px;color: white;">¡ Felicidades !</h2>'+
+			'<span style="position: absolute;margin:145px 100px 100px 50px;color: white;font-size: 26px;">Ya puedes solicitar algun servicio</span>'+
+			'<a href="/gestiona" class="btn btn-success btn-lg" style="position: absolute;margin:113px 66px 62px 513px;background-color:#00bd3a;color:white;">Pidelo aquí</button>' +
+			'</div>  </a>'
+		});
+
+		$('.modal-start').parent().parent().parent().parent().addClass('modal-lg');
+		$('.modal-start').parent().parent().addClass('modal-back-dog');
+	}else{
+		localStorage.setItem("modal-start", new Date().toISOString().split('T')[0].split('-')[2] );
+	}
+</script>
+<%}%>
+
+
+
+<!-- views/partials/datacontent.ejs -->
+<div class="row row-broken">
+	<%if(renta.length>=6 && domicilio.length>=1){%> <!-- afp.length -->
+	<div class="col-sm-6 col-md-6">
+		<div class="alert alert-success alert-dismissable" id="dvAlert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<a href="/gestiona" class="decoration-none"><strong><i class="fa fa-globe"></i> Todo listo para pedir un servicio, Solo haz clic Aquí! para comenzar!</strong></a>
+		</div>
+	</div>
+	<%}%>
+
+	<%var confirmar = false;%>
+	<%for(o = 0; o < objetos[0].inmueble.length; o++){%>
+	<%if(objetos[0].inmueble[o].confirmado == false){%>
+	<% confirmar = true; %>
+	<%}%>
+	<%}%>
+	<%for(o = 0; o < objetos[1].vehiculo.length; o++){%>
+	<%if(objetos[1].vehiculo[o].confirmado == false){%>
+	<% confirmar = true; %>
+	<%}%>
+	<%}%>
+	<%for(o = 0; o < objetos[2].sociedad.length; o++){%>
+	<%if(objetos[2].sociedad[o].confirmado == false){%>
+	<% confirmar = true; %>
+	<%}%>
+	<%}%>
+	<%if( confirmar == true ){%>
+	<div class="col-sm-6 col-md-6">
+		<div class="alert alert-warning alert-dismissable" style="background-color: #e83535">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<a href="#patrimoniosCliente" class="decoration-none"><strong><i class="fa fa-warning"></i> ¡Posee patrimonios a la espera de un documento que lo confirme!</strong></a>
+		</div>
+	</div>
+
+
+	<%}%>
+</div>
+<div class="row row-broken">
+	<div class="col-md-12 col-left">
+		<div class="col-inside-lg decor-primary b-profile">
+			<div class="b-profile-name" id="nombre">
+				<%= session.nombre %> <%= session.apepa %> <%= session.apema %>
+			</div>
+			<div class="b-profile-profession" id="correo">
+				<%= session.correo %>
+			</div>
+			<ul class="b-profile-folders">
+				<li><a>Rut <span class="badge badge-primary badge-round pull-right"><%= session.rut %></span></a></li>
+				<li><a>Dirección <span class="badge badge-primary badge-round pull-right"><%= session.direccion %></span></a></li>
+				<li><a>Situación laboral <span class="badge badge-primary badge-round pull-right"><%= session.situacion %></span></a></li>
+				<li><a>Empresa <span class="badge badge-primary badge-round pull-right"><%= session.empleador %></span></a></li>
+				<li><a>Renta <span class="badge badge-primary badge-round pull-right"><%= Number(session.ingreso).toLocaleString() %></span></a></li>
+				<li><a>Estado Civil <span class="badge badge-primary badge-round pull-right"><%= session.estadocivil %></span></a></li>
+				<li><a>Fecha de Nacimiento <span class="badge badge-primary badge-round pull-right">
+					<%=	new Date(session.nacimiento).toISOString().split('T')[0].split('-')[2] + "/" +
+					new Date(session.nacimiento).toISOString().split('T')[0].split('-')[1] + "/"+
+					new Date(session.nacimiento).toISOString().split('T')[0].split('-')[0] %></span></a></li>
+					<li><a>Nacionalidad <span class="badge badge-primary badge-round pull-right"><%= session.nacionalidad %></span></a></li>
+					<li><a>Hijos menores de 21 años<span class="badge badge-primary badge-round pull-right"><%= session.hijos %></span></a></li>
+				</ul>
+				<br>
+				<button type="button" name="button" class="btn btn-primary element-center" data-toggle="modal" data-target="#actualizarModal">Actualizar Mis Datos</button>
+				<br>
+				<div class="b-profile-about" id="documentacion">
+					<ul class="b-profile-folders">
+						<li><a></a></li><br>
+						<%if(renta.length<=5 || domicilio.length<1){%>
+						<li>Documentos de renta subidos:<span class="badge badge-primary badge-round pull-right"><%=renta.length%></span></li>
+						<li>Comprobantes de domicilio subidos:<span class="badge badge-primary badge-round pull-right"><%=domicilio.length%></span></li>
+						<li style="padding-bot: 1em;">Estado de su cuenta:<span class="badge badge-primary badge-round pull-right" style="color:yellow;"><i class="fa fa-clock-o"></i> Pendiente</span></li>
+						<li ><a style="font-size:0.7em;"><i class="fa fa-info-circle"></i> <i>Es importante que tenga al menos 6 documentos de renta y 1 Comprobante de domicilio actualizado antes de solicitar algún servicio</i></a></li>
+
+						<%} else {%>
+						<li>Documentos de renta subidos:<span class="badge badge-primary badge-round pull-right"><%=renta.length%></span></li>
+						<li>Comprobantes de domicilio subidos:<span class="badge badge-primary badge-round pull-right"><%=domicilio.length%></span></li>
+						<li style="padding-bot: 1em;">Estado de su cuenta:<span class="badge badge-primary badge-round pull-right" style="color:rgb(125, 210, 173);"><i class="fa fa-check-circle"></i> Completado</span></li>
+						<li style="font-size:0.7em;"><i class="fa fa-info-circle"></i> Es importante que tenga al menos 6 documentos de renta y 1 Comprobante de domicilio actualizado antes de solicitar algún servicio</li>
+						<%}%>
+					</ul>
+				</div>
+				<br>
+				<div class="b-profile-about" id="patrimonio">
+					<h5 class="text-center"><u>MI PATRIMONIO</u></h5><br>
+					<ul class="b-profile-folders">
+						<% if( objetos[0].inmueble.length > 0) { %>
+						<li data-toggle="collapse" data-target="#detalleIn" id="cambiarInmu" class="pointer">
+							<i class="fa fa-plus-circle" id="inmu"></i> Inmuebles
+							<span class="badge badge-primary badge-round pull-right"><%=objetos[0].inmueble.length %></span>
+							<hr class="hr-margin">
+						</li>
+						<li>
+							<div class="collapse" id="detalleIn">
+								<% for(i=0; i < objetos[0].inmueble.length; i++){ %>
+								<div style="margin: 0px 10px;">
+									<span>Inmueble:</span>
+									<span class="pull-right">
+										<%= objetos[0].inmueble[i].propiedad  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Dirección:</span>
+									<span class="pull-right">
+										<%= objetos[0].inmueble[i].direccion  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Valor:</span>
+									<span class="pull-right">
+										<%= Number(objetos[0].inmueble[i].valor).toLocaleString()  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Valor Arriendo:</span>
+									<span class="pull-right">
+										$<%= Number(objetos[0].inmueble[i].cuotas).toLocaleString()  %>
+									</span>
+								</div><br>
+								<%}%>
+							</div>
+						</li>
+						<% } else { %>
+						<li></li>
+						<% } %>
+
+						<% if( objetos[1].vehiculo.length > 0) { %>
+						<li data-toggle="collapse" data-target="#detalleVi" id="cambiarVehi" class="pointer">
+							<i class="fa fa-plus-circle" id="vehi"></i> Vehículos 
+							<span class="badge badge-primary badge-round pull-right"><%=objetos[1].vehiculo.length%></span>
+							<hr class="hr-margin">
+						</li>
+						<li>
+							<div class="collapse" id="detalleVi">
+								<% for(i=0; i < objetos[1].vehiculo.length; i++){ %>
+								<div style="margin: 0px 10px;">
+									<span>Vehiculo:</span>
+									<span class="pull-right">
+										<%= objetos[1].vehiculo[i].vehiculo  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Marca:</span>
+									<span class="pull-right">
+										<%= objetos[1].vehiculo[i].marca  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Modelo:</span>
+									<span class="pull-right">
+										<%= objetos[1].vehiculo[i].modelo  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Año:</span>
+									<span class="pull-right">
+										<%= objetos[1].vehiculo[i].year  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Valor:</span>
+									<span class="pull-right">
+										$<%= Number(objetos[1].vehiculo[i].valor).toLocaleString()  %>
+									</span>
+								</div><br>
+								<%}%>
+							</div>
+						</li>
+						<% } else { %>
+						<li></li>
+						<% } %>
+
+						<% if( objetos[2].sociedad.length > 0) { %>
+						<li data-toggle="collapse" data-target="#detalleSo" id="cambiarSoci" class="pointer">
+							<i class="fa fa-plus-circle" id="soci"></i> Sociedades
+							<span class="badge badge-primary badge-round pull-right"><%=objetos[2].sociedad.length%></span>
+							<hr class="hr-margin">
+						</li>
+						<li>
+							<div class="collapse" id="detalleSo">
+								<% for(i=0; i < objetos[2].sociedad.length; i++){ %>
+								<div style="margin: 0px 10px;">
+									<span>Nombre:</span>
+									<span class="pull-right">
+										<%= objetos[2].sociedad[i].nombre  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>Tipo:</span>
+									<span class="pull-right">
+										<%= objetos[2].sociedad[i].sociedad  %>
+									</span>
+								</div>
+								<div style="margin: 0px 10px;">
+									<span>%:</span>
+									<span class="pull-right">
+										<%= objetos[2].sociedad[i].porcentaje  %>
+									</span>
+								</div><br>
+								<%}%>
+							</div>
+						</li>
+						<% } else { %>
+						<li></li>
+						<% } %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 col-right">
+			<div class="col-inside-lg decor-default activities" id="activities" tabindex="5003" style="overflow-y: hidden; outline: none;">
+				<h5><u>Documentos</u></h5>
+				<div class="unit">
+					<div class="col-inside-lg decor-default">
+						<h6><strong>Importante!</strong> ¿Por qué te ayuda subir documentación?<br>Entre más información tiene el banco puedes ser mejor evaluado, ya que puede tomar otras fuentes de ingresos que solo con las liquidaciones no son consideradas.</h6>
+						<div class="alert-icon alert-icon-success">
+							<strong>¿Por qué solicitan comprobante de domicilio?</strong><br>Acredita el domicilio del cliente y así garantiza la veracidad de esta dirección.
+						</div>
+						<div class="alert-icon alert-icon-success">
+							<strong>¿Por qué hay que firmar tanta documentación?</strong><br>De esta manera se valida la lectura y aceptación de las condiciones inherentes al producto seleccionado, lo cual es un respaldo para el cliente y el banco.
+						</div>
+						<div class="alert-icon alert-icon-success">
+							<strong>¿Por qué debería declarar mi patrimonio? (autos, casas, terrenos, etc...)</strong><br>Se declara el patrimonio ya que con esto puede ayudar y garantizar los respaldos del cliente para los productos solicitados.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-right" style="margin-top: 20px;">
+			<div class="col-inside-lg decor-default activities" tabindex="5003" style="overflow-y: hidden; outline: none;">
+				<%if(docs.length>0){%>
+				<div>
+					<h5 class="m-b-md"><u>Mis Documentos</u></h5>
+					<div class="table-responsive">
+						<table class="table table-small-font table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>Nombre archivo</th>
+									<th>Fecha</th>
+									<th>Tipo</th>
+									<th>Borrar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for (var i = 0; i < docs.length; i++) { %>
+								<tr>
+									<td><%= docs[i].originalname %></td>
+									<td><%= new Date(docs[i].date).toISOString().split('T')[0].split('-')[2] + '/' + 
+										new Date(docs[i].date).toISOString().split('T')[0].split('-')[1] + '/' + 
+										new Date(docs[i].date).toISOString().split('T')[0].split('-')[0] %></td>
+										<td><%= docs[i].type %></td>
+										<td><a href="/fileDelete?goods=<%=docs[i]._id%>&cod=<%=new Buffer(docs[i].filename).toString('base64')%>"><i class="fa fa-trash-o" style="color:red;"></i></a></td>
+									</tr>
+									<% } %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+
+			<div class="col-md-12 col-right" style="margin-top: 20px;">
+				<div class="col-inside-lg decor-default activities" tabindex="5003" style="overflow-y: hidden; outline: none;">
+					<div>
+						<h5 class="m-b-md"><u>Subir documentación</u></h5>
+						<small class="cursiva">
+							<i class="fa fa-warning" style="color:orange;"></i> 
+							En este formulario puede subir sus boletas, liquidaciones, ivas, cedulas, certificados y otros documentos importantes para acreditar su información personal.
+						</small>
+						<br><br>
+						<form name="formularioDoc" id="formularioDoc" action="/upload" method="post" enctype="multipart/form-data">
+							<div class="form-group has-warning">
+								<div class="form-group">
+									<label>Seleccione el tipo de documento</label>
+									<select class="form-control material" name="type" required="">
+										<option value="" disabled selected>Seleccione</option>
+										<option value="Actualización de renta">Boleta, Liquidación o Iva</option>
+										<option value="Cedula de identidad">Cedula de identidad</option>
+										<option value="Certificados">Certificado ( soltería, familiar, etc...)</option>
+										<option value="Comprobante de domicilio">Comprobante de domicilio</option>
+										<option value="Certificado de AFP">Certificado de AFP</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group has-success">
+								<div class="progress">
+									<div class="bar">
+									</div>
+									<div class="percent" style="text-align:center;">
+										0%
+									</div>
+								</div>
+								<div id="status">
+								</div>
+							</div>
+							<div class="form-group has-success">
+								<input type="file" multiple name="files" id="documento" accept="application/pdf, image/*" class="filestyle" required="" data-buttonName="btn-primary" data-buttonText="&nbsp;&nbsp;Examinar">
+								<small class="cursiva">Solo se permiten Formatos PDF, JPG y PNG</small>
+							</div>
+							<div class="form-group has-success">
+								<button type="submit" id="upload" class="btn btn-info">Subir Documento</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-right" style="margin-top: 20px;">
+				<div class="col-inside-lg decor-default activities" tabindex="5003" style="overflow-y: hidden; outline: none;">
+					<div>
+						<h5 class="m-b-md"><u>Declarar Patrimonio</u></h5>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalInmueble">
+								Inmueble
+							</button>
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalVehiculo">
+								Vehículo
+							</button>
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModalSociedad">
+								Sociedad
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-right" style="margin-top: 20px;">
+				<div class="col-inside-lg decor-default activities" tabindex="5003" style="overflow-y: hidden; outline: none;">
+					<div>
+						<h5 class="m-b-md" id="patrimoniosCliente"><u>Mis patrimonios</u></h5>
+						<div class="table-responsive">
+							<%if(objetos[0].inmueble.length>0){%>
+							<table class="table table-small-font table-bordered table-striped">
+								<thead>
+									<tr>
+										<th><b>Tipo</b></th>
+										<th><b>Dirección</b></th>
+										<th><b>Documento Respaldo</b></th>
+										<th><b>Eliminar</b></th>
+									</tr>
+								</thead>
+								<tbody id="listado">
+									<% objetos[0].inmueble.map(function(v,i){ %>
+									<tr><td><%=v.propiedad%></td>
+										<td><%=v.direccion%></td>
+										<%if(v.confirmado==false){%>
+										<td><a class="text-primary pointer" onclick='openModal("<%=v._id%>","<%=new Buffer('propiedad').toString('base64')%>")'> Subir Documento</i></td>
+										<%} else {%>
+										<td><i class="fa fa-check-circle" style="color:green;"></i></td>
+										<%}%>
+										<td><a href="/delete?goods=<%=v._id%>&t=<%=new Buffer('propiedad').toString('base64')%>"><i class="fa fa-times-circle" style="color:red;"></i></a></td></tr>
+										<% }) %>
+									</tbody>
+								</table>
+								<%}%>
+							</div>
+							<div class="no-mobile-m-20">
+								<%if(objetos[1].vehiculo.length>0){%>
+								<table class="table table-small-font table-bordered table-striped">
+									<thead>
+										<tr>
+											<th><b>Tipo</b></th>
+											<th><b>Marca</b></th>
+											<th><b>Patente</b></th>
+											<th><b>Documento Respaldo</b></th>
+											<th><b>Eliminar</b></th>
+										</tr>
+									</thead>
+									<tbody id="listado">
+										<% objetos[1].vehiculo.map(function(v,i){ %>
+										<tr><td><%=v.vehiculo%></td>
+											<td><%=v.marca%></td>
+											<td><%=v.patente%></td>
+											<%if(v.confirmado==false){%>
+											<td><a class="text-primary pointer" onclick='openModal("<%=v._id%>","<%=new Buffer('vehiculo').toString('base64')%>")'> Subir Documento</td>
+											<%} else {%>
+											<td><i class="fa fa-check-circle" style="color:green;"></i></td>
+											<%}%>
+											<td><a href="/delete?goods=<%=v._id%>&t=<%=new Buffer('vehiculo').toString('base64')%>"><i class="fa fa-times-circle" style="color:red;"></i></a></td></tr>
+											<% }) %>
+										</tbody>
+									</table>
+									<%}%>
+								</div>
+								<div class="no-mobile-m-20">
+									<%if(objetos[2].sociedad.length>0){%>
+									<table class="table table-small-font table-bordered table-striped">
+										<thead>
+											<tr>
+												<th><strong>Nombre</th>
+												<th><strong>Tipo</th>
+												<th><strong>Porcentaje</th>
+												<th><strong>Documento Respaldo</strong></th>
+												<th><strong>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody id="listado">
+											<% objetos[2].sociedad.map(function(v,i){ %>
+											<tr><td><%=v.nombre%></td>
+												<td><%=v.sociedad%></td>
+												<td><%=v.porcentaje%>%</td>
+												<%if(v.confirmado==false){%>
+												<td><a class="text-primary pointer" onclick='openModal("<%=v._id%>","<%=new Buffer('sociedad').toString('base64')%>")'> Subir Documento</td>
+												<%} else {%>
+												<td><i class="fa fa-check-circle" style="color:green;"></i></td>
+												<%}%>
+												<td><a href="/delete?goods=<%=v._id%>&t=<%=new Buffer('sociedad').toString('base64')%>"><i class="fa fa-times-circle" style="color:red;"></i></a></td></tr>
+												<% }) %>
+											</tbody>
+										</table>
+										<%}%>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END ROW-BROKEN-->

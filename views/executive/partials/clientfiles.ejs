@@ -1,0 +1,45 @@
+<div class="col-md-12 col-right">
+	<div class="decor-default p-full-md">
+		<div class="col-md-6 col-sm-6 col-sm-6 m-b-md">
+			<h5><strong>Documentos del Cliente</strong></h5>
+		</div>
+		<div class="col-md-6 col-sm-6 col-sm-6 m-b-md">
+			<div class="col-md-12" id="dvPdfDownload" style="padding-top: 0px;display: none;">
+				<button class="btn pull-right btn-success" id="btnPdfDownload" style="padding-top: 0px;">Descargar PDF</button>
+			</div>
+		</div>
+		<div class="no-mobile-m-20">
+			<div class="table-responsive">
+				<table class="table table-small-font table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Tipo Documento</th>
+							<th>Fecha</th>
+							<th>Extensión</th>
+							<th>Descargar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% for (var i = 0; i < cliente[5].archivos.length; i++) { %>
+						<tr>
+							<td><%= cliente[5].archivos[i].type %></td>
+							<td><%= new Date(cliente[5].archivos[i].date).toISOString().split('T')[0].split('-')[2] + "/" + new Date(cliente[5].archivos[i].date).toISOString().split('T')[0].split('-')[1] + "/"+ new Date(cliente[5].archivos[i].date).toISOString().split('T')[0].split('-')[0]  %>
+							</td>
+							<% if(cliente[5].archivos[i].mimetype == 'application/pdf'){ %>
+							<td>PDF</td>
+							<% } else if(cliente[5].archivos[i].mimetype == 'image/jpeg'){ %>  
+							<td>JPG</td>
+							<% }else{ %>
+							<td>PNG</td>
+							<% } %>
+							<td>
+								<a href="/executive/download?goods=<%=cliente[5].archivos[i]._id%>" target="_blank"><i class="fa fa-download" style="color:black;"></i></a>
+							</td>
+						</tr>
+						<% } %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

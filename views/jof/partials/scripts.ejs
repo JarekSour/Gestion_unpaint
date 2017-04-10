@@ -1,0 +1,159 @@
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.nicescroll.min.js"></script>
+<script src="../js/classie.js"></script>
+<script src="../js/bootstrap-select.min.js"></script>
+<!--<script src="js/search.js"></script>-->
+<script src="../js/sweetalert.min.js"></script>
+<script src="../js/moment.min.js"></script>
+<script src="../js/polyfill.object-fit.min.js"></script>
+
+<script src="../js/ui.js"></script>
+<script src="../js/jquery.easypiechart.min.js"></script>
+<script src="../js/jquery.sparkline.min.js"></script>
+<script src="../js/calendar.js"></script>
+<script src="../js/chart.js"></script>
+<script src="../js/skycons.js"></script>
+<script>
+  var skycons = new Skycons({
+    "color": "white"
+  });
+  skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+  skycons.add("icon2", Skycons.CLEAR_DAY);
+  skycons.play();
+</script>
+<script src="../js/jquery.nicescroll.min.js"></script>
+<script src="../js/TweenMax.min.js"></script>
+<script src="../js/chat.js"></script>
+<script src="../js/peppermint.min.js"></script>
+<script src="../js/bootbox.min.js"></script>
+<script src="../js/jquery.dataTables.min.js"></script>
+<script src="../js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+  function modalMessage(n){
+    $("#ejecutivo").html(n)
+    $("#darwing").val(n)
+    $('#myModalMensaje').modal('toggle');
+  }
+</script>
+<script type="text/javascript">
+  $("#newExecutive").submit(function(){
+    event.preventDefault()
+    if($("#q5").val() == $("#q6").val()){
+      document.getElementById("newExecutive").submit()
+    } else {
+      $("#q6").val("")
+      bootbox.alert('Los correos deben cohincidir para evitar errores de tipeo...')
+    }
+  })
+</script>
+<script type="text/javascript">
+ function modalDetail(e){
+   $.ajax({
+     url: './jof/psd',
+     type: 'POST',
+     data: {
+       'e': e
+     },
+     dataType: 'json',
+     success: function(data){
+       if (data.status == 'success' && data.list.length > 0) {
+         var html = ''
+         for (var i = 0; i < data.list.length; i++) {
+           html += '<tr>'
+           html += '<td><center>' + data.list[i].client.nombre + '</center></td>'
+           html += '<td><center>' + data.list[i].client.rut + '</center></td>'
+           html += '<td><center>' + data.list[i].service.sueño + '</center></td>'
+           html += '<td><center>' + data.list[i].service.tipo + '</center></td>'
+           html += '<td><center>$' + Number(data.list[i].service.monto).toLocaleString() + '</center></td>'
+           html += '<td><center>' + data.list[i].service.estado + '</center></td>'
+           html += '</tr>'
+         }
+         $("#allDetails").html(html)
+       }
+       $("#myModalDetail").modal('toggle');
+     }
+   });
+ }
+</script>
+<script type="text/javascript">
+  function modalExecutive(e, n, r, c, s){
+    $.ajax({url: './jof/executive', type: 'POST', data:{'e': e }, dataType: 'json', success: function(data){
+      if (data.results>=1) {
+        var html = '<h6 class="m-b-md"><center>Sus Clientes</center></h6>'
+        html += '<table  class="table table-small-font table-bordered table-striped">'
+        html += '<thead><tr><th>Cliente</th><th>Rut</th><th>Correo</th><th>Ejecutivo</th></thead>'
+        html += '<tbody>'
+        for (var i = 0; i < data.clients.length; i++) {
+          console.log(data.clients[i]);
+          html += '<tr><td>' + data.clients[i].nombre + '</td>'
+          html += '<td>' + data.clients[i].rut + '</td>'
+          html += '<td>' + data.clients[i].correo + '</td>'
+          html += '<td>'
+          html += '<form name="formuCliExe" action="/jof/modcliexe" method="post" style="display:flex">'
+          html += '<input type="hidden" name="r" readonly="" value="' + data.clients[i].rut + '">'
+          html += '<input type="hidden" name="estado" readonly="" value="' + s + '">'
+          html += '<select class="form-control material" name="e">'
+          html += '<option value="' + e + '">' + n + '</option>'
+          for (var x = 0; x < data.executives.executives.length; x++) {
+            if (data.executives.executives[x].executive != e) {
+              html += '<option value="' + data.executives.executives[x].executive + '">' +  data.executives.executives[x].nombre + '</option>'
+            }
+          }
+          html += '</select>'
+          html += '<button type="submit" value="Submit"><i class="fa fa-save"></i></button></form></td></tr>'
+        }
+        html +='</tbody></table>'
+        $("#cliexe").html(html)
+      } else {
+        $("#cliexe").html('')
+      }
+      $("#executive").html(n)
+      $("#e").html(e)
+      $("#r").html(r)
+      $("#c").html(c)
+      $("#eje").val(e)
+      $("#estadoEjecutivo").val(s)
+      $("#myModalExecutive").modal('toggle');
+    }});
+  }
+</script>
+<script type="text/javascript">
+  function saveChanges(){
+    var e = $("#eje").val()
+    var s = $("#estadoEjecutivo").val()
+    $.ajax({url: './jof/executiveSituation', type: 'POST', data: { 'e': e, 's': s}, dataType: 'json', success: function(data){
+      if (data.status=='success') {
+        bootbox.alert('Cambios Exitosos!')
+        setTimeout(function () { window.location.href = "./jof"; }, 1000);
+      } else {
+        bootbox.alert('Ups! en estos momentos no se puede realizar la operación')
+      }
+    }});
+  }
+</script>
+<script type="text/javascript">
+  $("#q1").change(function() {
+    $.ajax({ url: './checkUser', type: 'POST', data: {'e': $("#q1").val()}, dataType: 'json', success: function(data){
+      if (data.executive=="use") {
+        $("#q1").val('')
+        bootbox.alert('Ya se ha registrado un ejecutivo con ese nombre de usuario en el sistema.')
+      }
+    }});
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#tableMisClientes').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      },
+      "columns": [
+      null,
+      null,
+      null,
+      null,
+      ]
+    })
+  });
+</script>

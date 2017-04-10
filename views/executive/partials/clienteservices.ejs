@@ -1,0 +1,43 @@
+<div class="col-md-12">
+    <div class="decor-default p-full-md">
+        <div class="col-md-6 col-sm-6 col-sm-6 m-b-md">
+            <h5><strong>Servicios solicitados por el Cliente</strong></h5>
+        </div>
+        <div class="col-md-6 col-sm-6 col-sm-6 m-b-md">
+            <button class="btn pull-right btn-success" data-toggle="modal" data-target="#addserviceModal">Agregar Servicio</button>
+        </div>
+
+        <div class="no-mobile-m-20">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Deseo</th>
+                            <th>Tipo</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                            <th>Respuesta</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < cliente[1].servicio.length; i++) { %>
+                        <tr>
+                            <td><%=cliente[1].servicio[i].nombre%></td>
+                            <td><%= cliente[1].servicio[i].objetivo %></td>
+                            <td><%= cliente[1].servicio[i].monto %></td>
+                            <td><%=cliente[1].servicio[i].estado %></td>
+                            <td><%=cliente[1].servicio[i].mensaje %></td>
+                            <%if(cliente[1].servicio[i].revision == "0"){%>
+                            <td><a class="btn btn-danger" onclick='openModal("<%= cliente[1].servicio[i]._id %>","<%= cliente[1].servicio[i].objetivo %>",<%= cliente[1].servicio[i].monto %>,"<%= cliente[1].servicio[i].estado %>","<%= cliente[1].servicio[i].mensaje %>","<%= cliente[1].servicio[i].nombre %>","<%= cliente[1].servicio[i].tasa %>","<%= cliente[1].servicio[i].valorcuota %>")'><i class="fa fa-edit"></i></a></td>
+                            <%} else {%>
+                            <td><a class="btn btn-info" onclick='openModal("<%= cliente[1].servicio[i]._id %>","<%= cliente[1].servicio[i].objetivo %>",<%= cliente[1].servicio[i].monto %>,"<%= cliente[1].servicio[i].estado %>","<%= cliente[1].servicio[i].mensaje %>","<%= cliente[1].servicio[i].nombre %>","<%= cliente[1].servicio[i].tasa %>","<%= cliente[1].servicio[i].valorcuota %>")'><i class="fa fa-edit"></i></a></td>
+                            <%}%>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

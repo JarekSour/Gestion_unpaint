@@ -1,0 +1,33 @@
+<div class="col-md-12">
+    <div class="decor-default p-full-md">
+        <div class="col-md-6 col-sm-6 col-sm-6 m-b-md">
+            <h5><strong>Servicios solicitados por el Cliente</strong></h5>
+        </div>
+        <div class="no-mobile-m-20">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Deseo</th>
+                            <th>Tipo</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                            <th>Respuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < cliente[1].servicio.length; i++) { %>
+                        <tr>
+                            <td><%=cliente[1].servicio[i].nombre%></td>
+                            <td><%= cliente[1].servicio[i].objetivo %></td>
+                            <td><%= cliente[1].servicio[i].monto %></td>
+                            <td><%=cliente[1].servicio[i].estado %></td>
+                            <td><%=cliente[1].servicio[i].mensaje %></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

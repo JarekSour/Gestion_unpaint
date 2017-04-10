@@ -1,0 +1,69 @@
+<div class="col-md-12 col-right">
+	<div class="decor-default p-full-md">
+		<div class="col-md-6 col-sm-6 col-sm-6 m-b-md">
+			<h5><strong>Documentos del Cliente</strong></h5>
+		</div>
+		<div class="col-md-6 col-sm-6 col-sm-6 m-b-md">
+			<div class="col-md-12 hide" id="dvPdfDownload" style="padding-top: 0px;">
+				<button class="btn pull-right btn-success" id="btnPdfDownload" style="padding-top: 0px;">Descargar PDF</button>
+			</div>
+			<div class="col-md-12" id="dvHelpDownload" style="padding-top: 0px;">
+				<span class="cursiva" style="font-size: 13px;">*marque los archivos para luego descargar uno solo que contendra todos</span>
+			</div>
+		</div>
+		<div class="no-mobile-m-20">
+			<div class="table-responsive">
+				<table class="table table-small-font table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Tipo Documento</th>
+							<th>Fecha</th>
+							<!-- <th>Extensión</th> -->
+							<th>Descargar</th>
+							<th>Estado</th>
+							<th>Descargar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% for (var i = 0; i < cliente[5].archivos.length; i++) { %>
+						<tr>
+							<td><%= cliente[5].archivos[i].type %></td>
+							<td><%= new Date(cliente[5].archivos[i].date).toISOString().split('T')[0].split('-')[2] + "/" + new Date(cliente[5].archivos[i].date).toISOString().split('T')[0].split('-')[1] + "/"+ new Date(cliente[5].archivos[i].date).toISOString().split('T')[0].split('-')[0]  %>
+							</td>
+							<!-- <% if(cliente[5].archivos[i].mimetype == 'application/pdf'){ %>
+							<td>PDF</td>
+							<% } else if(cliente[5].archivos[i].mimetype == 'image/jpeg'){ %>
+							<td>JPG</td>
+							<% }else{ %>
+							<td>PNG</td>
+							<% } %> -->
+							<td>
+								<a href="/jof/download?goods=<%=cliente[5].archivos[i]._id%>" target="_blank"><i class="fa fa-download" style="color:black;"></i></a>
+							</td>
+							<% if( cliente[5].archivos[i].status == 'valid' ){ %>
+							<td><i data-toggle="tooltip" title="Aprobado" class="fa fa-check-square-o text-success" aria-hidden="true"></i></td>
+							<% }else if ( cliente[5].archivos[i].status == 'invalid' ) { %>
+							<td><i data-toggle="tooltip" title="Rechazado" class="fa fa-window-close-o text-danger" aria-hidden="true"></i></td>
+							<% }else { %>
+							<td>
+								<button class="btn-badge badge-valid" data-id="<%=cliente[5].archivos[i]._id%>" data-toggle="tooltip" title="Aprobar" >
+									<i class="fa fa-check-square-o text-success" aria-hidden="true"></i>
+								</button>
+								<button class="btn-badge badge-invalid" data-id="<%=cliente[5].archivos[i]._id%>" data-toggle="tooltip" title="Rechazar" >
+									<i class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+								</button>
+							</td>
+							<% } %>
+							<td>
+								<div class="checkbox" style="margin-top: -10px">
+									<input type="checkbox" value="" class="chkVisible" data-id="/jof/gallery?goods=<%=cliente[5].archivos[i]._id%>">
+								</div>
+							</td>
+						</tr>
+						<% } %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

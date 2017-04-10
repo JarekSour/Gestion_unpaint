@@ -1,0 +1,316 @@
+<!-- Modal -->
+<div class="modal fade" id="actualizarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header modal-head-primary">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Actualizar información</h4>
+			</div>
+			<div class="modal-body">
+				<form name="formularioInmueble" id="formularioInmueble" method="post" action="/updateprofile">
+					<div class="form-group has-primary">
+						<label¿>Ha cambiado su actual dirección?</label>
+						<input type="text" name="direccion" class="form-control material" placeholder="Ej. Alameda #1234, Santiago" required="" value="<%= session.direccion %>">
+					</div>
+					<div class="form-group has-primary">
+						<label>¿Ha cambiado su situación laboral?</label>
+						<select class="form-control material" id="situacion" name="situacion" required="">
+							<option value="<%= session.situacion %>"><%= session.situacion %></option>
+							<option value="Estudiando">Estudiando</option>
+							<option value="Independiente">Independiente</option>
+							<option value="Dependiente">Dependiente</option>
+							<option value="Cesante">Cesante</option>
+						</select>
+					</div>
+					<div class="form-group has-primary">
+						<label>¿Ha cambiado donde trabaja?</label>
+						<input type="text" name="empleador" class="form-control material" placeholder="EJ: Bci Nova" required="" value="<%= session.empleador %>">
+					</div>
+					<div class="form-group has-primary">
+						<label>¿Ha cambiado cuanto gana al mes?</label>
+						<input type="number" name="ingreso" min="1" class="form-control material" placeholder="EJ: 500000" required="" value="<%= session.ingreso %>">
+					</div>
+					<div class="form-group has-primary">
+						<label>¿Ha cambiado su estado civil?</label>
+						<select class="form-control material" name="estadocivil" required="">
+							<option value="<%=session.estadocivil%>"><%=session.estadocivil%></option>
+							<option value="Solter@">Solter@</option>
+							<option value="Casad@">Casad@</option>
+							<option value="Divorsiad@">Divorsiad@</option>
+							<option value="Viud@">Viud@</option>
+						</select>
+					</div>
+					<div class="form-group has-primary">
+						<label>Número de hijos menores a 21</label>
+						<input type="number" name="hijos" min="0" class="form-control material" placeholder="Cantidad de hijos" required="" value="<%= session.hijos %>">
+					</div>
+					<div class="form-group has-primary">
+						<center><button type="submit" class="btn btn-info">Listo!</button></center>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<span><i style="color: #ff3838;" class="fa fa-warning"></i> Al momento de enviar su información estará declarando que toda información ingresada es correcta</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalInmueble" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header modal-head-success">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Declarar Inmueble</h4>
+			</div>
+			<div class="modal-body">
+				<form name="formularioInmueble" id="formularioInmueble" method="post" action="/bien">
+					<input type="hidden" name="tipo" value="propiedad">
+					<div class="form-group has-success">
+						<label>Escoja el tipo de inmueble</label>
+						<select class="form-control material" name="propiedad" required="">
+							<option value="" disabled selected>Seleccione</option>
+							<option value="Casa">Casa</option>
+							<option value="Departamento">Departamento</option>
+							<option value="Edificio">Edificio</option>
+							<option value="Oficina">Oficina</option>
+							<option value="Local Comercial">Local Comercial</option>
+							<option value="Estacionamiento">Estacionamiento</option>
+							<option value="Sitio">Sitio (Terreno)</option>
+							<option value="Bodega">Bodega</option>
+							<option value="Otros">Otros</option>
+						</select>
+					</div>
+					<div class="form-group has-success">
+						<label>Dirección del Inmueble</label>
+						<input type="text" name="direccion" class="form-control material" placeholder="Ej. Alameda #1234, Santiago" required="">
+					</div>
+					<div class="form-group has-success">
+						<label>Valor del Inmueble</label>
+						<input type="number" name="valor" class="form-control material" placeholder="Ej. 250000000" required="">
+					</div>
+					<div class="form-group has-success">
+						<label >¿Arrienda hace más de seis meses el inmueble?</label>
+						<div class="checkbox">
+							<label class="cursiva"><input type="checkbox" name="checkInmueble">Marque esta opción en caso de que el inmueble le produzca algún tipo de renta mensual</label>
+						</div>
+					</div>
+					<div class="form-group has-success">
+						<label>Renta que le produce mensual</label>
+						<input type="number" name="cuotas" class="form-control material" placeholder="Ej. 350000" required="">
+					</div>
+					<div class="form-group has-primary">
+						<label>¿Posee seguro?</label>
+						<div>
+							<label class="radio-inline"><input type="radio" name="optseguro">Si</label>
+							<label class="radio-inline"><input type="radio" name="optseguro">No</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-info element-center" style="margin: 10px auto;">Listo</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<span>El declarar bienes como inmuebles y otros ayudan en su evaluación</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalVehiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header modal-head-primary"">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Declarar Vehículo</h4>
+			</div>
+			<div class="modal-body">
+				<form name="formularioVehiculo" id="formularioVehiculo" method="post" action="/bien">
+					<input type="hidden" name="tipo" value="vehiculo">
+					<div class="form-group has-primary">
+						<label>Escoja el tipo de Vehículo</label>
+						<select class="form-control material" name="vehiculo" required="">
+							<option value="" disabled selected>Seleccione</option>
+							<option value="Auto">Auto</option>
+							<option value="Camioneta">Camioneta</option>
+							<option value="Camión">Camión</option>
+							<option value="Moto">Moto</option>
+							<option value="Avión">Avión</option>
+							<option value="Lancha">Lancha</option>
+							<option value="Otros">Otros</option>
+						</select>
+					</div>
+					<div class="form-group has-primary">
+						<label>Ingrese la patente</label>
+						<input type="text" name="patente" pattern=".{6,6}" class="form-control material" placeholder="Ej. DJXD13" required="">
+					</div>
+					<div class="form-group has-primary">
+						<label>Marca del vehículo</label>
+						<input type="text" name="marca" class="form-control material" placeholder="Ej. Hyundai" required="">
+					</div>
+					<div class="form-group has-primary">
+						<label>Modelo del vehículo</label>
+						<input type="text" name="modelo" class="form-control material" placeholder="Ej. Accent" required="">
+					</div>
+					<div class="form-group has-primary">
+						<label>Año del vehículo</label>
+						<input type="number" name="year" max="2017" min="1900" class="form-control material" placeholder="Ej. 2015" required="">
+					</div>
+					<div class="form-group has-primary">
+						<label>Valor del vehículo</label>
+						<input type="number" name="valor" min="1" class="form-control material" placeholder="Ej. 50000000" required="">
+					</div>
+					<div class="form-group has-primary">
+						<label>¿Posee seguro?</label>
+						<div>
+							<label class="radio-inline"><input type="radio" name="optseguro">Si</label>
+							<label class="radio-inline"><input type="radio" name="optseguro">No</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-info element-center" style="margin: 10px auto;">Listo</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<span class="text-center">El declarar bienes como inmuebles y otros ayudan en su evaluación</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalSociedad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header modal-head-warning">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Declarar Sociedad</h4>
+			</div>
+			<div class="modal-body">
+				<form name="formularioSociedad" id="formularioSociedad" method="post" action="/bien">
+					<input type="hidden" name="tipo" value="sociedad">
+					<div class="form-group has-warning">
+						<label>Escoja el tipo de Sociedad</label>
+						<select class="form-control material" name="sociedad" required="">
+							<option value="" disabled selected>Seleccione</option>
+							<option value="Limitada">Limitada</option>
+							<option value="Anonima Cerrada">Anónima Cerrada</option>
+							<option value="Anonima Abierta">Anónima Abierta</option>
+							<option value="Colectiva">Colectiva</option>
+							<option value="En Comandita">En Comandita</option>
+							<option value="Sucesión">Sucesión</option>
+							<option value="Por acciones">Por acciones</option>
+						</select>
+					</div>
+					<div class="form-group has-warning">
+						<label>Nombre de la empresa</label>
+						<input type="text" name="nombre" class="form-control material" placeholder="Ej. Mercosur" required="">
+					</div>
+					<div class="form-group has-warning">
+						<label>Rut de la empresa</label>
+						<input type="text" name="rut" class="form-control material" placeholder="Ej. 76.890.123-4" required="">
+					</div>
+					<div class="form-group has-warning">
+						<label>Porcentaje que posee</label>
+						<input type="number" name="porcentaje" class="form-control material" max="100" min="1" placeholder="Ej. 30" required="">
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-info element-center" style="margin: 10px auto;">Listo</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<span>El declarar bienes como inmuebles y otros ayudan en su evaluación</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalDocs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#ffcc00;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Documento de respaldo</h4>
+			</div>
+			<div class="modal-body">
+				<h5 class="m-b-md">Subir documentación!</h5>
+				<p><i class="fa fa-warning" style="color:orange;"></i> <b>En este formulario puede subir sus Boletas, liquidaciones, ivas, cedulas, certificados y otros documentos importantes para acreditar su información personal.</b></p>
+				<form name="formularioDoc" id="formularioDoc2" action="/accreditation" method="post" enctype="multipart/form-data">
+					<div class="form-group has-success">
+						<input type="hidden" name="t" id="t" value="" required="">
+						<input type="hidden" name="darwing" id="darwing" value="" required="">
+						<div class="progress">
+							<div class="bar">
+							</div>
+							<div class="percent" style="text-align:center;">
+								0%
+							</div>
+						</div>
+						<div id="status2">
+						</div>
+					</div>
+					<div class="form-group has-success">
+						<input type="file"  name="files" id="documentoRespaldo" accept="application/pdf, image/*" class="form-control material" placeholder="documento" required="">
+						<small class="help-block">Solo se permiten Formatos PDF, JPG y PNG</small>
+					</div>
+					<div class="form-group has-success">
+						<center><button type="submit" id="upload" class="btn btn-info">¡Subir Documento!</button></center>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<span>El declarar bienes como inmuebles y otros ayudan en su evaluación</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalFeedback" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-head-success modal-header ">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">¡Queremos saber su opinion!</h4>
+			</div>
+			<div class="modal-body">
+				<h6 class="m-b-md">Para nosotros lo más importante es que usted reciba un buen servicio</h6>
+				<form name="formularioFeedback" id="formularioFeedback" action="/feedback" method="post">
+					<div class="form-group has-success">
+						<label>¿Motivo del Mensaje?</label>
+						<select class="form-control material" name="motivo" required="">
+							<option value="" disabled selected>Seleccione</option>
+							<option value="Felicitaciones">Felicitaciones</option>
+							<option value="Sugerencias">Sugerencias</option>
+							<option value="Reclamos">Reclamos</option>
+							<option value="Otro">Otro</option>
+						</select>
+					</div>
+					<div class="form-group has-success">
+						<label>Mensaje</label>
+						<textarea style="resize:none;" name="mensaje" id="mensaje" rows="4" cols="40" class="form-control material" placeholder="Pienso que ..." required=""></textarea>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-info element-center" style="margin: 10px auto;">Listo</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<span><b>De antemano agradecemos sus comentarios.</b></span>
+			</div>
+		</div>
+	</div>
+</div>

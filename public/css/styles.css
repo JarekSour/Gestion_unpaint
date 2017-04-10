@@ -1,0 +1,137 @@
+th, td{
+	text-align: center;
+}
+a.decoration-none{
+	text-decoration: none;
+	color: white;
+}
+a.decoration-none:hover{
+	text-decoration: none;
+	color: #E5E5E5;
+	cursor: pointer;
+}
+#tableMisClientes thead{
+	display: none;
+}
+li.paginate_button >a:hover{
+	background-color: #bb2737;
+}
+li.paginate_button >a:focus{
+	background-color: #bb2737;
+}
+.pointer{
+	cursor: pointer;
+}
+.huge{
+	margin-top: -15px;
+	font-size: 45px;
+}
+.panel-green{
+	background-color: rgba(0, 133, 41, 0.44);
+}
+.panel-yellow{
+	background-color: rgba(255, 204, 0, 0.54);
+}
+.panel-red{
+	background-color: rgba(241, 21, 46, 0.32);
+}
+.panel-blue{
+	background-color: rgba(0, 95, 197, 0.23);
+}
+.btn-badge{
+	background-color: #eaeaea;
+	border-radius: 20px;
+}
+.margin-left-10{
+	margin-left: 10px;
+}
+.margin-right-10{
+	margin-right: 10px;
+}
+.hr-margin{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+.cursiva{
+	font-style: italic;
+	font-size: 15px;
+	color: gray;
+}
+.element-center{
+	float: none;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: -30px;
+	margin-top: -15px;
+}
+.alert-login{
+	background-color: #e23e3e;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	animation: fadein 2s;
+	-moz-animation: fadein 2s; /* Firefox */
+	-webkit-animation: fadein 2s; /* Safari and Chrome */
+	-o-animation: fadein 2s; /* Opera */
+}
+
+@keyframes fadein {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@-moz-keyframes fadein { /* Firefox */
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+@-o-keyframes fadein { /* Opera */
+	from {
+		opacity:0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.modal-head-primary{
+	background-color: #0071ce !important;
+}
+.modal-head-success{
+	background-color: #008529 !important;
+}
+.modal-head-warning{
+	background-color: #ffcc00 !important;
+}
+.modal-lg{
+	width: 783px;
+}
+.modal-back-dog{
+	background-image: url('../images/bg-banner.jpg');
+	height: 373px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+.logo-bci{
+	width: 100%;
+	padding: 5px;
+}
+
+#logout:hover{
+	color: black;
+}

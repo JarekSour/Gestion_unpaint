@@ -1,0 +1,68 @@
+<!-- views/pages/login.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% include ../partials/head %>
+</head>
+
+<body class="decor-success loginpage" style="overflow-y:visible;">
+	<div class="container">
+		<img src="../images/gestiona.png" style="width:20%;"/>
+		<h3 style="color:#006cad;"><center>Favor ingrese sus datos para completar el registro</center></h3>
+		<% if(mensaje){%>
+		<div class="alert alert-danger"><%=mensaje%></div>
+		<%}%>
+		<div class="col-md-8 col-md-offset-2">
+			<form method="post" action="/executive/registro" id="newForm" >
+				<div class="col-xs-12 col-sm-12 col-lg-12" >
+					<div class="form-group has-primary">
+						<label>RUT</label>
+						<input class="form-control material" name="rut" id="rut" type="text" placeholder="Ej. 16751285-3" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-lg-12" >
+					<div class="form-group has-primary">
+						<label>Telefono</label>
+						<input class="form-control material" id="telefono" name="telefono" type="text" placeholder="Ej. +569 949 37 818" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group has-primary">
+						<label>Contraseña</label>
+						<input class="form-control material" id="q10" name="q10" type="password" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group has-primary">
+						<label>Confirme Contraseña</label>
+						<input class="form-control material" id="q11" name="q11" type="password" required/>
+					</div>
+				</div>
+				<div class="text-right col-xs-12 col-sm-12 col-lg-12">
+					<button class="btn btn-lg btn-lg btn-primary" type="submit">Finalizar</button>
+				</div>
+				<br><br>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootbox.min.js"></script>
+	<script type="text/javascript">
+		$("#newForm").submit(function(){
+			event.preventDefault()
+			if ($("#q10").val() == $("#q11").val()) {
+				document.getElementById("newForm").submit()
+			} else {
+				bootbox.alert('Las contraseñas deben conincidir')
+			}
+		})
+
+		$('#rut').keyup(function(){
+			this.value = this.value.replace(/[.]/g, '');
+		});
+	</script>
+</body>
+</html>

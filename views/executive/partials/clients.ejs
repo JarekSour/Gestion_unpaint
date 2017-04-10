@@ -1,0 +1,20 @@
+<div class="row row-broken decor-default p-full-md">
+	<div class="col-md-12">
+		<h2 class="text-center">Mis Clientes</h2>
+		<div class="table-responsive">
+			<table class="table table-striped dataTable" id="tableMisClientes">
+				<tbody>
+					<%for(i=0; i< clients.length; i ++){%>
+					<% var nombre = clients[i].nombre + " " + clients[i].apepa + " " + clients[i].apema + "" %>
+					<tr>
+						<td><%=clients[i].rut%></td>
+						<td><%=nombre%></td>
+						<td><%=clients[i].correo%></td>
+						<td><a style="color: #005fc5;" href="/executive/client?doc=<%=clients[i].rut%>"><i class="fa fa-eye"></i></a></td>
+					</tr>
+					<%}%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

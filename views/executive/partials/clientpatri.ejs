@@ -1,0 +1,107 @@
+<div class="col-md-12" style="margin-top: 20px;">
+	<div class="decor-default p-full-md">
+		<h5 class="m-b-md text-center"><strong><u>Patrimonios</u></strong></h5>
+		<div class="no-mobile-m-20">
+			<div class="table-responsive">
+				<%if(cliente[2].inmueble.length>0){%>
+				<table class="table table-small-font table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Direccion</th>
+							<th>Valor Propiedad</th>
+							<th>Valor Arriendo (Condicional)</th>
+							<th>Documento Respaldo</th>
+							<th>Seguro</th>
+						</tr>
+					</thead>
+					<tbody id="listado">
+						<% cliente[2].inmueble.map(function(v,i){ %>
+						<tr><td><%=v.propiedad%></td>
+							<td><%=v.direccion%></td>
+							<td>$<%=Number(v.valor).toLocaleString()%></td>
+							<%if(v.cuotas){%>
+							<td>$<%=Number(v.cuotas).toLocaleString()%></td>
+							<%} else {%>
+							<td>No en arriendo</td>
+							<%}%>
+
+							<%if(v.confirmado==false){%>
+							<td>Pendiente</td>
+							<%} else {%>
+							<td><a href="/executive/downloadthis?goods=<%=v._id%>" target="_blank"><i class="fa fa-download" style="color:black;"></i></a></td>
+							<%}%>
+							<% }) %>
+							<!--  if(v.seguro==true){ // agregar seguro a bd -->
+							<td><i class="fa fa-check-square-o text-success" aria-hidden="true"></i></td>
+
+							<td><i class="fa fa-times-circle text-danger" aria-hidden="true"></i></td>
+						</tr>
+					</tbody>
+				</table>
+				<%}%>
+
+				<%if(cliente[3].vehiculo.length>0){%>
+				<table class="table table-small-font table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Marca</th>
+							<th>Año</th>
+							<th>Patente</th>
+							<th>Valor</th>
+							<th>Documento Respaldo</th>
+							<th>Seguro</th>
+						</tr>
+					</thead>
+					<tbody id="listado">
+						<% cliente[3].vehiculo.map(function(v,i){ %>
+						<tr><td><%=v.vehiculo%></td>
+							<td><%=v.marca%></td>
+							<td><%=v.year%></td>
+							<td><%=v.patente%></td>
+							<td>$<%=Number(v.valor).toLocaleString()%></td>
+							<%if(v.confirmado==false){%>
+							<td>Pendiente</td>
+							<%} else {%>
+							<td><a href="/executive/downloadthis?goods=<%=v._id%>" target="_blank"><i class="fa fa-download" style="color:black;"></i></a></td>
+							<%}%>
+							<% }) %>
+							<!--  if(v.seguro==true){ // agregar seguro a bd -->
+							<td><i class="fa fa-check-square-o text-success" aria-hidden="true"></i></td>
+
+							<td><i class="fa fa-times-circle text-danger" aria-hidden="true"></i></td>
+						</tr>
+					</tbody>
+				</table>
+				<%}%>
+
+				<%if(cliente[4].sociedad.length>0){%>
+				<table class="table table-small-font table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Tipo</th>
+							<th>Porcentaje</th>
+							<th>Documento Respaldo</th>
+						</tr>
+					</thead>
+					<tbody id="listado">
+						<% cliente[4].sociedad.map(function(v,i){ %>
+						<tr><td><%=v.nombre%></td>
+							<td><%=v.sociedad%></td>
+							<td><%=v.porcentaje%>%</td>
+							<%if(v.confirmado==false){%>
+							<td>Pendiente</td>
+							<%} else {%>
+							<td><a href="/executive/downloadthis?goods=<%=v._id%>" target="_blank"><i class="fa fa-download" style="color:black;"></i></a></td>
+							<%}%>
+							<% }) %>
+						</tr>
+					</tbody>
+				</table>
+				<%}%>
+			</div>
+		</div>
+	</div>
+</div>

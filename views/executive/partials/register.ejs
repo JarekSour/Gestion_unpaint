@@ -1,0 +1,56 @@
+<div class="row row-broken decor-default p-full-md">
+	<div class="col-md-12">
+		<h1 class="m-b-md"><center>Nuevo Cliente</center></h1>
+		<h5><center><i class="fa fa-warning" style="color:#005fc5"></i> Será enviado un correo al cliente para completar su registro</center></h5>
+		<br>
+		<form id="newClient" action="/executive/register" method="post">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="col-xs-12 col-sm-12 col-lg-12" >
+					<div class="form-group has-primary">
+						<label>Rut / Passaporte</label>
+						<input class="form-control material" id="q1" name="q1" type="text" placeholder="Ej. 13112222-4" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-lg-12" >
+					<div class="form-group has-primary">
+						<label>Nombre cliente</label>
+						<input class="form-control material" id="q2" name="q2" type="text" placeholder="Ej. Javier" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group has-primary">
+						<label>Apellido Paterno</label>
+						<input class="form-control material" id="q3" name="q3" type="text" placeholder="Ej. Castro" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group has-primary">
+						<label>Apellido Materno</label>
+						<input class="form-control material" id="q4" name="q4" type="text" placeholder="Ej. Amador" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group has-primary">
+						<label>Correo Electrónico</label>
+						<input class="form-control material" id="q5" name="q5" type="email" placeholder="Ej. nombre@mail.com" required/>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-lg-6" >
+					<div class="form-group has-primary">
+						<label>Confirme Correo Electrónico</label>
+						<input class="form-control material" id="q6" name="q6" type="email" placeholder="Ej. nombre@mail.com" required/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<button class="btn btn-success element-center" type="submit" style="margin-bottom:30px;margin-top: 30px;">Registro Completo</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+	$('#q1').keyup(function(){
+		this.value = this.value.replace(/[.]/g, '');
+	});
+</script>

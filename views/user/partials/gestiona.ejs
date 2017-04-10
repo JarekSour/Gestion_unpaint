@@ -1,0 +1,190 @@
+<div class="row row-broken">
+	<div class="col-md-12 col-left">
+		<div class="col-inside-lg decor-default activities" tabindex="5003" style="overflow-y: hidden; outline: none;">
+			<h5 class="text-center">¡Esto es lo que quiero!</h5>
+			<p class="text-center" style="font-size: 14px;line-height: 20px;margin-top: 20px;">
+				
+				<i class="fa fa-warning" style="color: #ec1515;"></i> Segun su renta de $<%= Number(session.ingreso).toLocaleString()%> Su capacidad de dividendo es de hasta $<%= Number(session.ingreso * 0.25).toLocaleString()%>
+			</p>
+			<form name="formulario" id="nuevoServicio" method="post" action="/servicio">
+				<div class="form-group has-success">
+					<label>Nombre de tu Proyecto</label>
+					<input type="text" name="nombre" class="form-control material" placeholder="Ej. ¡Comprar la casa de mis sueños!" required="">
+				</div>
+				<div class="form-group has-success">
+					<label>Elije un servicio</label>
+					<select class="form-control material" name="objetivo" required="">
+						<option value="" disabled selected>Seleccione</option>
+						<option value="Libre Disponibilidad">Libre Disponibilidad</option>
+						<option value="Crédito Hipotecario">Crédito Hipotecario</option>
+						<option value="Crédito Comercial">Crédito Comercial</option>
+						<option value="Crédito Automotriz">Crédito Automotriz</option>
+					</select>
+				</div>
+				<div class="form-group has-success">
+					<label>Monto para tu proyecto</label>
+					<input type="number" name="monto" class="form-control material" min="1" placeholder="Ej. 5000000" required="">
+				</div>
+				<div class="form-group has-success">
+					<label>Número de Cuotas <i class="fa fa-info-circle" style="color:#25ff00;" data-toggle="tooltip" title="En caso de Crédito Hipotecario es de 1 a 30 años"></i></label>
+					<input type="number" name="cuotas" class="form-control material" min="1" max="60" placeholder="Ej. 36" required="">
+				</div>
+				<div class="form-group has-success">
+					<label >¿Con meses de desfase?</label>
+					<div class="checkbox">
+						<label class="cursiva"><input type="checkbox" name="desfase">Elige esta opción para postergar la fecha de la primera cuota.</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-info element-center" style="margin: 10px auto;">Todo Listo</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-12 col-right">
+		<div class="col-inside-lg decor-default activities" tabindex="5003" style="overflow-y: hidden; outline: none;">
+			<h5><u>Endeudamiento responsable</u></h5><br>
+			
+			<h6 class="cursiva"><i>Agregue sus valores para conocer su endeudamiento responsable</i></h6>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<span>Renta:</span>
+					<span class="pull-right">
+						<input type="text" readonly="" disabled="" class="form-control material" value="<%= Number(session.ingreso).toLocaleString()%>" style="opacity: 1;" style="margin-bottom: 0px;">
+					</span>
+					<input type="hidden" id="renta" readonly="" name="renta" class="form-control material" min="1" value="<%= session.ingreso %>">
+				</div>
+				<div class="col-md-10 col-md-offset-1">
+					<span>Endeudamiento Externos:</span>
+					<span class="pull-right">
+						<input type="number" id="exte" name="exte" class="form-control material" min="1" value="0" style="margin-bottom: 0px;">
+					</span>
+				</div>
+				<div class="col-md-10 col-md-offset-1">
+					<span>Compromisos mensuales<br>Incluyendo Arriendo si aplica:</span>
+					<span class="pull-right">
+						<input type="number" id="mensuales" name="mensuales" class="form-control material" min="1" value="0" style="margin-bottom: 0px;">
+					</span>
+				</div>
+				<div class="col-md-10 col-md-offset-1">
+					<span>Endeudamiento Restante:</span>
+					<span class="pull-right">
+						<input type="text" readonly="" disabled="" id="endeudamiento" name="mensuales" class="form-control material" value="0" style="opacity: 1;margin-bottom: 0px;">
+						<!-- <span id="endeudamiento" class="form-control material">0</span> -->
+					</span>
+				</div>
+				<div class="col-md-10 col-md-offset-1">
+					<span>Carga Restante:</span>
+					<span class="pull-right">
+						<input type="text" readonly="" disabled="" id="carga" name="mensuales" class="form-control material" value="0" style="opacity: 1;margin-bottom: 0px;">
+						<!-- <span id="carga" class="form-control material">0</span> -->
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-inside-lg decor-default activities" tabindex="5003" style="margin-top: 20px;">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="text-align:right;">
+					<center><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#detalle"><i class="fa fa-eye"></i> Descripción</button></center>
+				</div>
+				<div class="panel-body">
+					<div class="collapse" id="detalle">
+						<h6><strong>Capacidad de carga</strong></h6>
+						<div class="alert-icon alert-icon-info">
+							<strong>Compromisos mensuales</strong><br>Montos que ya se destinan mensualmente al pago de compromisos financieros ( Créditos, tarjetas, etc...).
+						</div>
+						<div class="alert-icon alert-icon-info">
+							<strong>Endeudamiento externo</strong><br>Montos totales adquiridos en otras instituciones financieras.
+						</div>
+						<div class="alert-icon alert-icon-info">
+							<strong>Carga financiera mensual</strong><br>La suma de los compromisos comerciales mensuales que paga la persona, para poder calcular en un porcentaje cuanto lleva de sus ingresos liquidos.
+						</div>
+						<div class="alert-icon alert-icon-info">
+							<strong>Capacidad de endeudamiento</strong><br>Cuantas veces el ingreso liquido se puede destinar a adquirir compromisos comerciales.
+						</div>
+						<div class="alert-icon alert-icon-info">
+							<strong>Carga financiera restante</strong><br>Diferencia entre la carga maxima, menos la carga ya adquirida para poder determinar cuanto mas se puede pagar mensualmente.
+						</div>
+						<div class="alert-icon alert-icon-info">
+							<strong>Capacidad de endeudamiento restante</strong><br>Diferencia entre la capacidad de endeudamiento maxima menos la capacidad ya adquirida, para tener conocimiento de los montos totales disponibles para adquirir.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row row-broken">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="decor-default p-full-md">
+					<h5 class="m-b-md"><strong>Mis Proyectos</strong></h5>
+					<div class="no-mobile-m-20">
+						<div class="table-responsive">
+							<table class="table table-small-font table-bordered table-striped">
+								<thead>
+									<tr>
+										<th><center>Tipo</center></th>
+										<th><center>Monto</center></th>
+										<th><center>Valor Cuota</center></th>
+										<th><center>Tasa</center></th>
+										<th><center>Estado</center></th>
+										<th><center>Respuesta</center></th>
+										<th><center>Operación</center></th>
+									</tr>
+								</thead>
+								<tbody id="listado">
+									<% if(servicios.length > 0) { %>
+									<% for(i = 0; i < servicios.length; i ++){ %>
+									<tr>
+										<td><center><%=servicios[i].objetivo %></center></td>
+										<td><center>$ <%=Number(servicios[i].monto).toLocaleString() %></center></td>
+										<td><center>$ <%=Number(servicios[i].valorcuota).toLocaleString() %></center></td>
+										<td><center><%=servicios[i].tasa%>%</center></td>
+										<% if(servicios[i].estado){ %>
+										<% if(servicios[i].estado=='En revision'){ %>
+										<td><center><span><i class="btn btn-lg btn-info btn-icon btn-round"></i> Revisión en Transito</span></center></td>
+										<td><center><%=servicios[i].mensaje %></center></td>
+										<td><center> - </center></td>
+										<% } %>
+										<% if(servicios[i].estado=='Requiere Acción'){ %>
+										<td><center><span><i class="btn btn-lg btn-warning btn-icon btn-round"></i> <%=servicios[i].estado %></span></center></td>
+										<td><center><%=servicios[i].mensaje %></center></td>
+										<td><center> - </center></td>
+										<% } %>
+										<% if(servicios[i].estado=='Operación Exitosa'){ %>
+										<td><center><span><i class="btn btn-lg btn-success btn-icon btn-round"></i> <%=servicios[i].estado %></span></center></td>
+										<td><center><%=servicios[i].mensaje %></center></td>
+										<%if(!servicios[i].aprobado){%>
+										<%var id = new Buffer(servicios[i].id).toString('base64')%>
+										<td><center> <button type="button" class="btn btn-success" name="aprobar" onclick='aprobarSolicitud("<%=id%>")'>Aprobar Propuesta</button></center></td>
+										<%}else{%>
+										<td><center><i class="fa fa-star"></i> ¡Propuesta Aprobada!</center></td>
+										<%}%>
+										<% } %>
+										<% } else { %>
+										<td><center><span><i class="btn btn-lg btn-info btn-icon btn-round"></i> Revisión en Transito</span></center></td>
+										<td><center><%=servicios[i].mensaje %></center></td>
+										<td><center> - </center></td>
+										<% } %>
+									</tr>
+									<% } %>
+
+									<% } else { %>.
+									<tr><td colspan="7"><center>Sin servicios por registrar</center></td></tr>
+									<% } %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer" style="text-align:center;">
+				<span><i class="btn btn-lg btn-info btn-icon btn-round"></i> Revisión en Transito</span>
+				<span><i class="btn btn-lg btn-success btn-icon btn-round"></i> ¡Operación Exitosa!</span>
+				<span><i class="btn btn-lg btn-warning btn-icon btn-round"></i> Requiere una acción</span>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,77 @@
+<div class="col-md-12">
+	<div class="decor-default p-full-md">
+	<h2 class="text-center">Ejecutivos</h2>
+		<div class="table-responsive">
+			<table class="table table-small-font table-bordered table-striped" style="font-size:0.8em;">
+				<thead>
+					<tr>
+						<th>EJECUTIVO</th>
+						<th>N° DE CLIENTES</th>
+						<th>CLIENTES CON RENTA ACTUALIZADA</th>
+						<th>OPERACIONES PENDIENTES</th>
+						<th>ULTIMA GESTIÓN</th>
+						<th><i class="fa fa-envelope"></i></th>
+					</tr>
+				</thead>
+				<tbody>
+					<%for(i=0; i< data.executives.length; i ++){%>
+					<% var nombre = data.executives[i].info.nombre + " " + data.executives[i].info.apepa + " " + data.executives[i].info.apema + "" %>
+					<% var oppendientes = data.executives[i].optotales - data.executives[i].oprealizadas %>
+					<tr>
+						<td><a class="text-primary pointer" onclick='modalExecutive("<%=data.executives[i].info.executive%>", "<%=nombre%>", "<%=data.executives[i].info.rut%>", "<%=data.executives[i].info.correo%>", "<%=data.executives[i].info.situacion%>")'> <%=nombre%> <i class="fa fa-search-plus"></i></a></td>
+						<td><%=data.executives[i].clientsTotales%></td>
+						<td><%=data.executives[i].clientsra%></td>
+						<%if(oppendientes>0){%>
+						<td><%=oppendientes%> <a onclick='modalDetail("<%=data.executives[i].info.executive%>")'><i class="fa fa-search-plus"></i></a></td>
+						<%} else {%>
+						<td><%=oppendientes%> </td>
+						<%}%>
+						<%var lastClient = data.executives[i].clients.length - 1%>
+						<%var lastService = data.executives[i].clients[lastClient].services.length - 1%>
+						<%if(lastService > 0 ){%>
+						<td><%=new Date(data.executives[i].clients[lastClient].services[lastService].registro).toISOString().split('T')[0]%> [Estado: <%=data.executives[i].clients[lastClient].services[lastService].estado%>]</td>
+						<%} else {%>
+						<td>No registra actividad</td>
+						<%}%>
+						<td><a class="text-primary pointer" onclick='modalMessage("<%=data.executives[i].info.executive%>")'><i class="fa fa-envelope"></i></a></td>
+					</tr>
+					<%}%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="width: 80%;">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#005fc5;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Detalles de servicio pendiente <i class="fa fa-search-plus"></i></h4>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-small-font table-bordered table-striped" style="font-size:0.8em;">
+						<thead>
+							<tr>
+								<th>Cliente Rut</th>
+								<th>Cliente Nombre</th>
+								<th>Sueño</th>
+								<th>Servicio</th>
+								<th>Monto</th>
+								<th>Estado</th>
+							</tr>
+						</thead>
+						<tbody id="allDetails">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<center><span></span>
+			</div>
+		</div>
+	</div>
+</div>

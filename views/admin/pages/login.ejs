@@ -1,0 +1,40 @@
+<!-- views/pages/login.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% include ../partials/head %>
+</head>
+
+<body class="decor-success loginpage">
+	<img src="../images/gestiona.png" style="width:20%;"/>
+	<div class="table-wrapper-a">
+		<div class="table-row">
+			<div class="table-cell">
+				<h1 class="text-center form-title" style="color:#006cad;">Ingreso Gestiona</h1>
+				<% if(mensaje && type==0){%>
+				<div class="alert alert-danger"><%=mensaje%></div>
+				<%}%>
+				<% if(mensaje && type==1){%>
+				<div class="alert alert-success"><%=mensaje%></div>
+				<%}%>
+				<div class="account-wall">
+					<form class="form-login fs-form" method="post" action="/admin" id="">
+						<label class="fs-field-label" for="q1" style="color:#006cad;">Nombre Usuario</label>
+						<input class="fs-anim-lower" id="q1" name="q1" type="text" style="color:#1d1c1c;" required/>
+						<label class="fs-field-label" for="q2" style="color:#006cad;">Contraseña</label>
+						<input class="fs-anim-lower" id="q2" name="q2" type="password" style="color:#1d1c1c;" required/>
+
+						<div class="text-right">
+							<button class="btn btn-lg btn-lg btn-primary" type="submit">Entrar</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

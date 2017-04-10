@@ -1,0 +1,14 @@
+<div class="aside">
+	<a href="/"><img id="logo" src="images/bcimin.png" class="logo-bci" /></a>
+	<a href="#" style="display:none" id="menu-btn-open"></a>
+	<% if(page == 'panel'){ %>
+		<%if(renta.length>=6 && domicilio.length>=1){%>
+			<a href="/gestiona" style="text-decoration:none;"><center><span class="fa fa-flag" style="color:white;font-size:3em; padding-top:1em;"></span></center>
+			<center><span style="color:white;">Solicitar Servicios</span></center></a>
+		<%}%>
+	<% }else{ %>
+		<a href="/" id="menu-btn-open" style="text-decoration:none;"><center><span class="fa fa-home" style="color:white;font-size:3em; padding-top:1em;"></span></center>
+		<center><span style="color:white;">Volver</span></center></a>
+	<% } %>
+	<a href="/exit"><span class="toggle-fixed fa fa-power-off" title="Logout" id="logout"></span></a>
+</div>

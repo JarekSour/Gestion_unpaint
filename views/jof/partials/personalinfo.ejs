@@ -1,0 +1,25 @@
+<div class="col-md-12 col-left">
+	<div class="col-inside-lg decor-primary b-profile">
+		<div class="b-profile-name" id="nombre">
+			<%= cliente[0].info.nombre %> <%= cliente[0].info.apepa %> <%= cliente[0].info.apema %>
+		</div>
+		<div class="b-profile-profession" id="correo">
+			<%= cliente[0].info.correo %>
+		</div>
+		<ul class="b-profile-folders">
+			<li><a>Rut <span class="badge badge-primary badge-round pull-right"><%= cliente[0].info.rut %></span></a></li>
+			<li><a>Dirección <span class="badge badge-primary badge-round pull-right"><%= cliente[0].info.direccion %></span></a></li>
+			<li><a>Situación laboral <span class="badge badge-primary badge-round pull-right"><%= cliente[0].info.situacion %></span></a></li>
+			<li><a>Empresa <span class="badge badge-primary badge-round pull-right"><%= cliente[0].info.empleador %></span></a></li>
+			<li><a>Renta <span class="badge badge-primary badge-round pull-right"><%= Number(cliente[0].info.ingreso).toLocaleString() %></span></a></li>
+			<li><a>Estado Civil <span class="badge badge-primary badge-round pull-right"><%= cliente[0].info.estadocivil %></span></a></li>
+			<li><a>Fecha de Nacimiento <span class="badge badge-primary badge-round pull-right">
+			<%= new Date(cliente[0].info.nacimiento).toISOString().split('T')[0].split('-')[2] + "/" +
+			 	new Date(cliente[0].info.nacimiento).toISOString().split('T')[0].split('-')[1] + "/"+ 		
+			 	new Date(cliente[0].info.nacimiento).toISOString().split('T')[0].split('-')[0]  %>
+			</span></a></li>
+			<li><a>Nacionalidad <span class="badge badge-primary badge-round pull-right"><%= cliente[0].info.nacionalidad %></span></a></li>
+			<li><a>Hijos menores de 21 años<span class="badge badge-primary badge-round pull-right"><%= cliente[0].info.hijos %></span></a></li>
+		</ul>
+	</div>
+</div>

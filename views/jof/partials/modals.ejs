@@ -1,0 +1,81 @@
+<!-- Modal -->
+<div class="modal fade" id="myModalMensaje" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#005fc5;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Enviar Mensaje</h4>
+			</div>
+			<div class="modal-body">
+				<h6 class="m-b-md">Mensaje para: <span id="ejecutivo"></span></h6>
+				<form name="formularioMensaje" id="formularioMensaje" action="/jof/notificar" method="post">
+					<div class="form-group has-success">
+						<input type="hidden" class="form-control material" id="darwing" name="darwing" required="">
+						<input type="text" class="form-control material" name="motivo" required="" placeholder="Motivo">
+					</div>
+					<div class="form-group has-success">
+						<textarea style="resize:none;" name="mensaje" id="mensaje" rows="4" cols="40" class="form-control material" placeholder="Mensaje" required=""></textarea>
+					</div>
+					<div class="form-group has-success">
+						<center><button type="submit" class="btn btn-info">Listo!</button></center>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<center><span>Su mensaje se desplegará en la pantalla del ejecutivo</span></center>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalExecutive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#005fc5;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Información Ejecutivo</h4>
+			</div>
+			<div class="modal-body">
+				<h6 class="m-b-md"><center><strong>Ejecutivo: <span id="executive"></span></strong></center></h6>
+				<div class="table-responsive">
+					<table class="table table-small-font table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Ejecutivo</th>
+								<th>Rut</th>
+								<th>Correo</th>
+								<th>Estado</th>
+								<th><i class="fa fa-save"></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="e"></td>
+								<td id="r"></td>
+								<td id="c"></td>
+								<td>
+									<input type="hidden" name="eje" id="eje" value="" readonly="">
+									<select class="form-control material" name="estadoEjecutivo" id="estadoEjecutivo">
+										<option value="Activo">Activo</option>
+										<option value="Con Licencia">Con Licencia</option>
+										<option value="De Vacaciones">De Vacaciones</option>
+									</select>
+								</td>
+								<td><a onclick="saveChanges()"><i class="fa fa-save"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="table-responsive" id="cliexe">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<center><span><i class="fa fa-warning" style="color:yellow"></i> Tenga precaución con el manejo de los datos</span></center>
+			</div>
+		</div>
+	</div>
+</div>

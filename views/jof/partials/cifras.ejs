@@ -1,0 +1,82 @@
+<div class="row row-broken">
+	<%var consumo = []%>
+	<%var hipotecario = []%>
+	<%var automotriz = []%>
+	<%for( i = 0; i < services.length; i ++){%>
+	<%if(services[i].objetivo == 'Libre Disponibilidad' || services[i].objetivo == 'Credito Comercial'){%>
+	<%consumo.push(services[i])%>
+	<%}%>
+	<%if(services[i].objetivo == 'Credito Hipotecario'){%>
+	<%hipotecario.push(services[i])%>
+	<%}%>
+	<%if(services[i].objetivo == 'Credito Automotriz'){%>
+	<%automotriz.push(services[i])%>
+	<%}%>
+	<%}%>
+
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-green">
+			<div class="panel-heading">
+				<div class="row" style="padding-bottom: 0;">
+					<div class="col-xs-3">
+						<i class="fa fa-group fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge"><%=clients.length%></div>
+						<div>Clientes</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-yellow">
+			<div class="panel-heading">
+				<div class="row" style="padding-bottom: 0;">
+					<div class="col-xs-3">
+						<i class="fa fa-usd fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge"><%=consumo.length%></div>
+						<div>Créditos de Consumo</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-red">
+			<div class="panel-heading">
+				<div class="row" style="padding-bottom: 0;">
+					<div class="col-xs-3">
+						<i class="fa fa-home fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge"><%=hipotecario.length%></div>
+						<div>Créditos Hipotecarios</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<div class="row" style="padding-bottom: 0;">
+					<div class="col-xs-3">
+						<i class="fa fa-automobile fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge"><%=automotriz.length%></div>
+						<div>Créditos Automotriz</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
